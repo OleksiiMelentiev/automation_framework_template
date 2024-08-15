@@ -24,7 +24,7 @@ public static class PlaywrightHelper
         PlaywrightObj.Dispose();
     }
 
-    public static async Task<IPage> GetAsync()
+    public static async Task<IPage> GetPageAsync()
     {
         if (Page != null)
         {
