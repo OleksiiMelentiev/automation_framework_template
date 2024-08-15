@@ -26,17 +26,21 @@ public static class PlaywrightHelper
         PlaywrightObj.Dispose();
     }
 
-    public static async Task<IPage> GetPageAsync()
+    public static async Task CreateAsync()
     {
         if (Page != null)
         {
-            return Page;
+            return;
         }
 
         PlaywrightObj = await Playwright.CreateAsync();
         BrowserObj = await CreateBrowserAsync();
         Page = await CreatePageAsync();
-        return Page;
+    }
+
+    public static IPage GetPage()
+    {
+        return Page ?? throw new ArgumentException("Playwright instance is not created");
     }
 
     public static async Task StartTracingAsync()

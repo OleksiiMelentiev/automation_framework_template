@@ -6,12 +6,10 @@ namespace Framework.Abstractions;
 
 public class UiTestBase : TestBase
 {
-    protected IPage Page { get; private set; } = default!;
-    
     [SetUp]
     public async Task Setup()
     {
-        Page = await PlaywrightHelper.GetPageAsync();
+        await PlaywrightHelper.CreateAsync();
         await PlaywrightHelper.StartTracingAsync();
     }
 
