@@ -1,5 +1,6 @@
 using Microsoft.Playwright;
 using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 
 namespace Framework.Helpers;
 
@@ -36,6 +37,32 @@ public static class PlaywrightHelper
         BrowserObj = await CreateBrowserAsync();
         Page = await CreatePageAsync();
         return Page;
+    }
+
+    public static async Task StartTracingAsync()
+    {
+        await Context.Tracing.StartAsync(new TracingStartOptions
+        {
+            Title = TestContext.CurrentContext.Test.ClassName + "." + TestContext.CurrentContext.Test.Name,
+            Screenshots = true,
+            Snapshots = true,
+            Sources = true
+        });
+    }
+
+    public static async Task StopTracing()
+    {
+        var isPassed = TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed;
+        var tracesDir = Path.Combine(
+            TestContext.CurrentContext.WorkDirectory,
+            "playwright-traces",
+            $"{TestContext.CurrentContext.Test.ClassName}.{TestContext.CurrentContext.Test.Name}.zip"
+        );
+
+        await Context.Tracing.StopAsync(new()
+        {
+            Path = isPassed ? null : tracesDir
+        });
     }
 
     public static async Task<string> TakeScreenshotAsync(IPage page)
