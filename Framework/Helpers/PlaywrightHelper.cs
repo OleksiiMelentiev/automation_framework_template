@@ -1,4 +1,5 @@
 using Microsoft.Playwright;
+using NUnit.Framework;
 
 namespace Framework.Helpers;
 
@@ -35,6 +36,25 @@ public static class PlaywrightHelper
         BrowserObj = await CreateBrowserAsync();
         Page = await CreatePageAsync();
         return Page;
+    }
+
+    public static async Task<string> TakeScreenshotAsync(IPage page)
+    {
+        var timestamp = DateTime.Now.ToString("yyyy-MM-dd-hhmm-ss");
+        var screenshotName = $"{TestContext.CurrentContext.Test.Name}_{timestamp}.png";
+        var screenshotsDir = Path.Combine(ExtentReportsHelper.ReportDirectory, "Screenshot");
+
+        IoHelper.CreateFolderIfDoesNotExist(screenshotsDir);
+
+        var screenshotPath = Path.Combine(screenshotsDir, screenshotName);
+
+        await page.ScreenshotAsync(new PageScreenshotOptions
+        {
+            Path = screenshotPath,
+            FullPage = true,
+        });
+
+        return screenshotPath;
     }
 
 
