@@ -15,7 +15,7 @@ public class ExtentReportsHelper
 
     private static ExtentReportsHelper? _instance;
 
-    public static ExtentReportsHelper Instance
+    private static ExtentReportsHelper Instance
     {
         get
         {
@@ -39,6 +39,11 @@ public class ExtentReportsHelper
 
             ExtentMap.TryAdd(testName, extentTest);
         }
+    }
+
+    public static ExtentReportsHelper Get()
+    {
+        return Instance;
     }
 
     public void EndReporting()
