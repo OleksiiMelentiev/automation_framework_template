@@ -37,4 +37,19 @@ public class ConfigReader
 
         return Config[settingName] ?? throw new ArgumentException($"Can't read '{settingName}' config");
     }
+    
+    public static string GetReportDir()
+    {
+        var dir = GetConfigByName("reportDirectory");
+
+        if (string.IsNullOrEmpty(dir))
+        {
+            var projDir = IoHelper.GetProjectDirectory();
+            dir = Path.Combine(projDir, "TestResult");
+        }
+
+        IoHelper.CreateFolderIfDoesNotExist(dir);
+
+        return dir;
+    }
 }
