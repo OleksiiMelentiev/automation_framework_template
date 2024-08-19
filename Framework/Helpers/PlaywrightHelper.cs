@@ -52,15 +52,15 @@ public static class PlaywrightHelper
     public static async Task StopTracing()
     {
         var isPassed = TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed;
-        var tracesDir = Path.Combine(
-            TestContext.CurrentContext.WorkDirectory,
+        var tracePath = Path.Combine(
+            ExtentReportsManager.ReportDirectory,
             "playwright-traces",
             $"{TestContext.CurrentContext.Test.ClassName}.{TestContext.CurrentContext.Test.Name}.zip"
         );
 
         await Context.Tracing.StopAsync(new()
         {
-            Path = isPassed ? null : tracesDir
+            Path = isPassed ? null : tracePath
         });
     }
 
