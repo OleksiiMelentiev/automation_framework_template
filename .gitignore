@@ -387,6 +387,7 @@ crashlytics-build.properties
 fabric.properties
 
 #custom
+TestResults/
 appsettings.local.json
 appsettings.local.dev-1.json
 appsettings.local.qa-1.json
