@@ -5,7 +5,7 @@ using NUnit.Framework.Interfaces;
 
 namespace Framework.Helpers;
 
-public class ExtentReportsHelper
+public class ExtentReportsManager
 {
     private static readonly object Padlock = new();
     private static readonly ConcurrentDictionary<string, ExtentTest> ExtentMap = new();
@@ -13,15 +13,15 @@ public class ExtentReportsHelper
     
     public static readonly string ReportDirectory = ConfigReader.GetReportDir();
 
-    private static ExtentReportsHelper? _instance;
+    private static ExtentReportsManager? _instance;
 
-    private static ExtentReportsHelper Instance
+    private static ExtentReportsManager Instance
     {
         get
         {
             lock (Padlock)
             {
-                return _instance ??= new ExtentReportsHelper();
+                return _instance ??= new ExtentReportsManager();
             }
         }
     }
@@ -41,7 +41,7 @@ public class ExtentReportsHelper
         }
     }
 
-    public static ExtentReportsHelper Get()
+    public static ExtentReportsManager Get()
     {
         return Instance;
     }

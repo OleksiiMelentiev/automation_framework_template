@@ -5,7 +5,7 @@ namespace Framework.Abstractions;
 
 public class TestBase
 {
-    private readonly ExtentReportsHelper _extentReports = ExtentReportsHelper.Get();
+    private readonly ExtentReportsManager _extentReports = ExtentReportsManager.Get();
 
     [SetUp]
     public void SetUpBase()

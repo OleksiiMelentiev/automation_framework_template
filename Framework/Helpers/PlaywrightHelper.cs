@@ -73,7 +73,7 @@ public static class PlaywrightHelper
     {
         var timestamp = DateTime.Now.ToString("yyyy-MM-dd-hhmm-ss");
         var screenshotName = $"{TestContext.CurrentContext.Test.Name}_{timestamp}.png";
-        var screenshotsDir = Path.Combine(ExtentReportsHelper.ReportDirectory, "Screenshot");
+        var screenshotsDir = Path.Combine(ExtentReportsManager.ReportDirectory, "Screenshot");
 
         IoHelper.CreateFolderIfDoesNotExist(screenshotsDir);
 
