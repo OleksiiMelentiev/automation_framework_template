@@ -28,11 +28,6 @@ public static class PlaywrightHelper
 
     public static async Task CreateAsync()
     {
-        if (Page != null)
-        {
-            return;
-        }
-
         PlaywrightObj = await Playwright.CreateAsync();
         BrowserObj = await CreateBrowserAsync();
         Page = await CreatePageAsync();

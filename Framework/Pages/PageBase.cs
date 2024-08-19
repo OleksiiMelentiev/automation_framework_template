@@ -8,7 +8,7 @@ public abstract class PageBase
     protected const string BaseUrl = "https://demoqa.com";
     protected abstract string Url { get; }
 
-    protected IPage Page { get; private set; } = PlaywrightHelper.GetPage();
+    protected IPage Page => PlaywrightHelper.GetPage();
 
 
     public async Task OpenAsync()
