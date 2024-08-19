@@ -77,14 +77,6 @@ public class ExtentReportsManager
             ExtentMap.TryRemove(testName, out _);
         }
     }
-    
-    public void LogFile( string filePath, string? info = null)
-    {
-        lock (Padlock)
-        {
-            GetExtentTest().Info(info).AddScreenCaptureFromPath(filePath);
-        }
-    }
 
     public void LogInfo(string message)
     {
@@ -94,11 +86,11 @@ public class ExtentReportsManager
         }
     }
     
-    public void LogScreenshot(string info, string imagePath)
+    public void LogScreenshot(string imagePath, string? title = null, string? info = null)
     {
         lock (Padlock)
         {
-            GetExtentTest().Info(info, MediaEntityBuilder.CreateScreenCaptureFromBase64String(imagePath).Build());
+            GetExtentTest().Info(info).AddScreenCaptureFromPath(imagePath, title);
         }
     }
 
