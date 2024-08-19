@@ -1,11 +1,14 @@
 using Framework.Helpers;
-using Microsoft.Playwright;
+using Framework.Lists;
 using NUnit.Framework;
 
 namespace Framework.Abstractions;
 
 public class UiTestBase : TestBase
 {
+    protected PagesList Pages = new();
+
+
     [SetUp]
     public async Task Setup()
     {
