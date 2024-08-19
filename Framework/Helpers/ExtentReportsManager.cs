@@ -78,7 +78,7 @@ public class ExtentReportsManager
         }
     }
     
-    public void LogInfo(string info, string filePath)
+    public void LogFile( string filePath, string? info = null)
     {
         lock (Padlock)
         {

@@ -49,7 +49,7 @@ public static class PlaywrightHelper
         });
     }
 
-    public static async Task StopTracing()
+    public static async Task<string> StopTracing()
     {
         var isPassed = TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed;
         var tracePath = Path.Combine(
@@ -62,9 +62,11 @@ public static class PlaywrightHelper
         {
             Path = isPassed ? null : tracePath
         });
+
+        return tracePath;
     }
 
-    public static async Task<string> TakeScreenshotAsync(IPage page)
+    public static async Task<string> TakeScreenshotAsync()
     {
         var timestamp = DateTime.Now.ToString("yyyy-MM-dd-hhmm-ss");
         var screenshotName = $"{TestContext.CurrentContext.Test.Name}_{timestamp}.png";
@@ -74,6 +76,7 @@ public static class PlaywrightHelper
 
         var screenshotPath = Path.Combine(screenshotsDir, screenshotName);
 
+        var page = GetPage();
         await page.ScreenshotAsync(new PageScreenshotOptions
         {
             Path = screenshotPath,
