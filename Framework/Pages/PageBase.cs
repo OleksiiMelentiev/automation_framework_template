@@ -11,7 +11,7 @@ public abstract class PageBase
     protected IPage Page { get; private set; } = PlaywrightHelper.GetPage();
 
 
-    public async Task Open()
+    public async Task OpenAsync()
     {
         await Page.GotoAsync(Url);
     }

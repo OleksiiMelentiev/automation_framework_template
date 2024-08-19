@@ -6,7 +6,8 @@ namespace Framework.Abstractions;
 
 public class UiTestBase : TestBase
 {
-    protected PagesList Pages = new();
+    protected readonly PagesList Pages = new();
+    protected readonly TestDataManagersList TestData = new();
 
 
     [SetUp]
