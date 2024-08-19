@@ -15,8 +15,12 @@ public class TextBoxPage : PageBase
     private ILocator EmailOutput => Page.Locator("xpath=//*[@id='output']//*[@id='email']");
     private ILocator FullNameInput => Page.Locator("xpath=//*[@id='userName']");
     private ILocator FullNameOutput => Page.Locator("xpath=//*[@id='name']");
-    private ILocator PermanentAddressInput => Page.Locator("xpath=//*[@id='permanentAddress-wrapper']//*[@id='permanentAddress']");
+
+    private ILocator PermanentAddressInput =>
+        Page.Locator("xpath=//*[@id='permanentAddress-wrapper']//*[@id='permanentAddress']");
+
     private ILocator PermanentAddressOutput => Page.Locator("xpath=//*[@id='output']//*[@id='permanentAddress']");
+    private ILocator SubmitBtn => Page.Locator("xpath=//*[@id='submit']");
 
 
     public async Task<TextBoxUiModel> GetFormOutputAsync()
@@ -56,5 +60,7 @@ public class TextBoxPage : PageBase
         {
             await PermanentAddressInput.FillAsync(textBox.PermanentAddress);
         }
+
+        await SubmitBtn.ClickAsync();
     }
 }
