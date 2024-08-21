@@ -94,12 +94,12 @@ public static class PlaywrightHelper
         var options = IsDebugging
             ? new BrowserTypeLaunchOptions
             {
-                // todo: add LaunchOptions if needed
+                Headless = false,
+                Args = new[] { "--start-maximized" },
             }
             : new BrowserTypeLaunchOptions
             {
-                Headless = false,
-                Args = new[] { "--start-maximized" },
+                // todo: add LaunchOptions if needed
             };
 
         return browserType switch
