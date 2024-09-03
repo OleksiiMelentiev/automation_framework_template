@@ -1,3 +1,4 @@
+using System.Net;
 using Framework.Abstractions;
 using Framework.Helpers;
 using Framework.Models.Api;
@@ -35,13 +36,19 @@ public class Example : TestBase
         // preconditions
         var exampleModel = TestData.ApiExample.GetExampleModel();
 
-        // steps:
+        // steps 1:
         var response = await Clients.Example.PostAsync(exampleModel);
         var createdModel = await HttpHelper.GetModelFromResponseAsync<ExampleModel>(response);
+
+        // check  results:
+        Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
+
+        // step 2
         var getResponse = await Clients.Example.GetAsync(createdModel.Id);
         var getModel = await HttpHelper.GetModelFromResponseAsync<ExampleModel>(getResponse);
 
         // check results
+        Assert.That(getResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         Assert.Multiple(() =>
         {
             Assert.That(createdModel.Id, Is.EqualTo(Guid.NewGuid()));
