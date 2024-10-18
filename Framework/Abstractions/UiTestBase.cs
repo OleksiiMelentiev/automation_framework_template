@@ -20,16 +20,21 @@ public class UiTestBase : TestBase
     [TearDown]
     public async Task TearDown()
     {
-        var tracingPath = await PlaywrightHelper.StopTracing();
-
-        var isPassed = TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed;
-        if (isPassed == false)
+        try
         {
-            var screenPath = await PlaywrightHelper.TakeScreenshotAsync();
-            ExtentReports.LogScreenshot(screenPath);
-            ExtentReports.LogScreenshot(tracingPath, "tracing (open in a new tab to download)");
-        }
+            var tracingPath = await PlaywrightHelper.StopTracing();
 
-        await PlaywrightHelper.CloseAsync();
+            var isPassed = TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed;
+            if (isPassed == false)
+            {
+                var screenPath = await PlaywrightHelper.TakeScreenshotAsync();
+                ExtentReports.LogScreenshot(screenPath);
+                ExtentReports.LogScreenshot(tracingPath, "tracing (open in a new tab to download)");
+            }
+        }
+        finally
+        {
+            await PlaywrightHelper.CloseAsync();
+        }
     }
 }
